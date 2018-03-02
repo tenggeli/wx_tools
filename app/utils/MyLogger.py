@@ -1,10 +1,5 @@
 # _*_ coding:UTF-8 _*_
 
-'''
-Created on 2017年5月8日
-
-@author: leehom
-'''
 
 import logging
 import logging.handlers
@@ -25,13 +20,13 @@ class MyLogger(object):
         #         path='/Users/tony/work/workspace/bi.jobscheduler/log/myapp.log'
         #         path = '../log/myapp.log'
         #         path = '/Users/tony/github/bi.harrypotte/bi.harrypotte.harrypotte/jobscheduler/log/myapp.log'
-        path = '../jobscheduler/log/myapp.log'
+        path = '..\log\myapp.log'
         if MyLogger.logger is None:
-            logging.basicConfig(level=logging.DEBUG,
-                                filename=path,
-                                filemode='a+',
-                                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-                                datefmt='%a, %d %b %Y %H:%M:%S')
+            logging.basicConfig(level = logging.DEBUG,
+                                format = '%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                                datefmt = '%m-%d %H:%M',
+                                filename = path,
+                                filemode = 'a+')
             logging.Formatter(
                 "%(asctime)s %(levelname)s %(message)s", "%D-%H:%M:%S")
             logging.handlers.TimedRotatingFileHandler(
@@ -54,7 +49,7 @@ class MyLogger(object):
 
 
 if __name__ == '__main__':
-    print 'test..'
+    print ('test..')
 
     MyLogger.getLogger().info('This is info message')
     MyLogger.getLogger().info('This is info message...')

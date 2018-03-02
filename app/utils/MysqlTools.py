@@ -1,10 +1,5 @@
 #  -*- coding: utf-8 -*-
 
-'''
-Created on 2017年5月4日
-
-@author: tony
-'''
 from sqlalchemy.ext.declarative import declarative_base
 # from sqlalchemy import Column, Integer, String, ForeignKey, UniqueConstraint, Index
 from sqlalchemy.orm import sessionmaker, relationship, scoped_session
@@ -13,9 +8,9 @@ import sys
 import time
 reload(sys)
 sys.setdefaultencoding('utf-8')
-from app.jobscheduler.log.MyLogger import MyLogger
+from app.utils.MyLogger import MyLogger
 logger = MyLogger.getLogger()
-from harrypotte.jobscheduler.config import JobConfig
+from config import default
 
 # from lib.log4me import MyLogger
 # logger = MyLogger.getLogger()
@@ -38,20 +33,20 @@ class MysqlTools(object):
         if MysqlTools.engine is None:
             try:
                 MysqlTools.engine = create_engine(
-                    JobConfig.mysql_conn_online, pool_size=30, max_overflow=-1, pool_recycle=500, echo=True)
+                    default.mysql_conn_online, pool_size=30, max_overflow=-1, pool_recycle=500, echo=True)
             except Exception, e:
                 logger.error("initConnection is Error:%s" % (e))
         if MysqlTools.datax_engine is None:
             try:
                 MysqlTools.datax_engine = create_engine(
-                    JobConfig.mysql_conn_online, pool_size=30, max_overflow=-1, pool_recycle=500, echo=True)
+                    default.mysql_conn_online, pool_size=30, max_overflow=-1, pool_recycle=500, echo=True)
             except Exception, e:
                 logger.error("initConnection is Error:%s" % (e))
 
     @staticmethod
     def getEngine():
         try:
-            conn = create_engine(JobConfig.mysql_conn_online)
+            conn = create_engine(default.mysql_conn_online)
 
         except Exception, e:
             logger.error("Mysql is Error:%s" % (e))
