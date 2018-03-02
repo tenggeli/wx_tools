@@ -12,6 +12,7 @@ code_dir = os.path.dirname(root_dir) #/Users/xiaoqi/www/MyHtml/wx_tools/app
 sys.path.insert(0, code_dir) #/Users/xiaoqi/www/MyHtml/wx_tools
 
 from app.weixin.handle import handle
+from app.weixin.basic import check_access_toke
 from app.weixin.basic import basic
 # lc = LoginController()
 

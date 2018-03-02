@@ -10,6 +10,9 @@ from flask import Blueprint, render_template
 import os
 from app.utils.MyLogger import MyLogger
 logger = MyLogger.getLogger()
+
+from app.weixin.basic import check_access_toke
+
 cur_abs_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(cur_abs_dir)
 templates_folder = os.path.join(os.path.dirname(root_dir), 'templates')
@@ -24,13 +27,15 @@ class Handle(object):
 
 
 @handle.route('/verify', methods=['GET', 'POST'])
-
+@check_access_toke
 def GET():
     logger.info('开始进行验证！')
     try:
-        data = web.input()
+        data = request.args.items()
+        print(data)
         if len(data) == 0:
-            return "hello, this is handle view"
+            return "data is null! plase cheking"
+
         signature = data.signature
         timestamp = data.timestamp
         nonce = data.nonce
@@ -42,13 +47,15 @@ def GET():
         sha1 = hashlib.sha1()
         map(sha1.update, list)
         hashcode = sha1.hexdigest()
-        print ("handle/GET func: hashcode, signature: ", hashcode, signature)
+        logger.info("handle/GET func: hashcode, signature: ", hashcode, signature)
         if hashcode == signature:
             return echostr
         else:
             return ""
+
     except Exception, Argument:
         return Argument
+
 
 '''
 def POST(self):
