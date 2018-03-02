@@ -1,2 +1,4 @@
 *.pyc
 instance/
+app/log/*
+.idea
