@@ -53,7 +53,7 @@ def GET():
         else:
             return ""
 
-    except Exception, Argument:
+    except Exception as Argument:
         return Argument
 
 

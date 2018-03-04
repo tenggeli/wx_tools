@@ -56,16 +56,16 @@ if __name__ == '__main__':
     MyLogger.getLogger().info('This is info message...')
 
     try:
-        print 'try...'
+        print ('try...')
         r = 10 / int('a')
-        print 'result:', r
-    except ValueError, e:
-        print 'ValueError:', e
+        print ('result:', r)
+    except ValueError as e:
+        print ('ValueError:' , e)
         MyLogger.getLogger().error('error: {}'.format(e))
-    except ZeroDivisionError, e:
-        print 'ZeroDivisionError:', e
+    except ZeroDivisionError as e:
+        print ('ZeroDivisionError:', e)
     finally:
-        print 'finally...'
+        print ('finally...')
 
 #     logging.basicConfig(level=logging.DEBUG,
 #                 format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
