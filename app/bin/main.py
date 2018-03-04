@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf8 -*-
 import sys
+import uwsgi
 
 # sys.setdefaultencoding('utf8')
 import os
@@ -28,6 +29,8 @@ app = Flask(__name__, static_folder=static_floder,
 app.register_blueprint(handle, url_prefix='/weixin')
 app.register_blueprint(basic)
 
+# 需要在main外面，uwsgi调用不会执行main
+application = app.wsgifunc()
 
 @app.route('/')
 # @basic
