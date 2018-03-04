@@ -9,6 +9,7 @@ app = Flask(__name__)
 from flask import Blueprint, render_template
 import os
 from app.utils.MyLogger import MyLogger
+
 logger = MyLogger.getLogger()
 
 from app.weixin.basic import check_access_toke
@@ -22,6 +23,8 @@ handle = Blueprint('handle', __name__, url_prefix='/weixin')
 
 class Handle(object):
     pass
+
+
 # def __init__(self):
 #     pass
 
@@ -84,4 +87,3 @@ def POST(self):
     except Exception, Argment:
         return Argment
 '''
-
