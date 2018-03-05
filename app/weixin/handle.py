@@ -51,7 +51,8 @@ def GET():
         sha1 = hashlib.sha1()
         map(sha1.update, list)
         hashcode = sha1.hexdigest()
-        logger.info("handle/GET func: hashcode, signature: ", hashcode, signature)
+        
+        logger.info(echostr)
         if hashcode == signature:
             return echostr
         else:
