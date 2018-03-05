@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # filename: handle.py
 from flask import Flask, jsonify
-from flask import request
+from flask import request, make_response
 from flask import abort
 import hashlib
 
@@ -52,7 +52,7 @@ def GET():
         hashcode = sha1.hexdigest()
         logger.info(echostr)
         if hashcode == signature:
-            return echostr
+            return make_response(echostr)
         else:
             return ""
 
