@@ -39,11 +39,13 @@ def GET():
         if len(data) == 0:
             return "data is null! plase cheking"
 
-        signature = data.signature
-        timestamp = data.timestamp
-        nonce = data.nonce
-        echostr = data.echostr
-        token = "mianduixianshi19921223"  # 请按照公众平台官网\基本配置中信息填写
+        data = request.args
+        signature = data.get('signature', '')
+        timestamp = data.get('timestamp', '')
+        nonce = data.get('nonce', '')
+        echostr = data.get('echostr', '')
+
+        token = "mianduixianshi19921223"
 
         list = [token, timestamp, nonce]
         list.sort()
