@@ -3,6 +3,7 @@
 from flask import Flask, jsonify
 from flask import request
 from flask import abort
+import hashlib
 
 app = Flask(__name__)
 

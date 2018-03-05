@@ -24,21 +24,18 @@ from app.weixin.basic import basic
 static_floder = os.path.join(root_dir, 'static')
 template_folder = os.path.join(root_dir, 'templates')
 
-# app = Flask(__name__, static_folder=static_floder, template_folder=template_folder)
-app = Flask(__name__)
+app = Flask(__name__, static_folder=static_floder,
+            template_folder=template_folder)
 
 # app.register_blueprint(handle)
 app.register_blueprint(handle, url_prefix='/weixin')
 app.register_blueprint(basic)
 
 
-# 需要在main外面，uwsgi调用不会执行main
-# application = app.wsgifunc()
-
 @app.route('/')
 # @basic
 def index():
-    return 'Hello World!'
+    return 'YCL I LOVE YOU!'
 
 
 if __name__ == '__main__':

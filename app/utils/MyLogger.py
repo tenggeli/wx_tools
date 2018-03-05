@@ -21,7 +21,7 @@ class MyLogger(object):
         #         path='/Users/tony/work/workspace/bi.jobscheduler/log/myapp.log'
         #         path = '../log/myapp.log'
         #         path = '/Users/tony/github/bi.harrypotte/bi.harrypotte.harrypotte/jobscheduler/log/myapp.log'
-        path = os.getcwd() + '/app/log/myapp.log'
+        path = '../log/myapp.log'
         if MyLogger.logger is None:
             logging.basicConfig(level = logging.DEBUG,
                                 format = '%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
