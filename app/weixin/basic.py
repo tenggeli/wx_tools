@@ -74,6 +74,6 @@ def run(self):
 def check_access_toke(f):
     @wraps(f)
     def get_self_access_token(*args, **kwargs):
-        print ('call %s():' % f.__name__)
+
         return f(*args, **kwargs)
     return get_self_access_token

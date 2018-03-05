@@ -36,7 +36,6 @@ def GET():
     logger.info('开始进行验证！')
     try:
         data = request.args.items()
-        print(data)
         if len(data) == 0:
             return "data is null! plase cheking"
 
@@ -51,7 +50,6 @@ def GET():
         sha1 = hashlib.sha1()
         map(sha1.update, list)
         hashcode = sha1.hexdigest()
-        
         logger.info(echostr)
         if hashcode == signature:
             return echostr
