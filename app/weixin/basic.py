@@ -63,6 +63,11 @@ def __real_get_access_token(self):
 
 
 def get_access_token():
+    accessToken = accessToken()
+    result, status, msg = accessToken.getAccessToken()
+
+
+
 
     print ('xxxxx')
     # if self.__leftTime < 10:

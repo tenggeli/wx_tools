@@ -10,6 +10,6 @@ manager = Manager(app)
 
 @manager.command
 def deploy():
-    print ()
+    print ('！！！！！开始执行！！！！！')
 if __name__ == '__main__':
     manager.run()
