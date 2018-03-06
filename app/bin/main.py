@@ -36,9 +36,8 @@ app.register_blueprint(basic)
 
 
 @app.route('/')
-@check_access_toke
 def index():
-    return 'YCL I LOVE YOU!'
+    return render_template('index/index.html')
 
 
 if __name__ == '__main__':
