@@ -1,27 +1,26 @@
 # -*- coding: utf-8 -*-
 #  filename: basic.py
 
-
-from flask import Flask, jsonify
-from flask import request
-from flask import abort
+import os, time
+from flask import Flask, Blueprint, request
+from flask import jsonify, abort, render_template
+from functools import wraps
 
 app = Flask(__name__)
 
-from flask import Blueprint, render_template
-import os
+
 from app.utils.MyLogger import MyLogger
+
 logger = MyLogger.getLogger()
 
-from functools import wraps
+# print(logger)
 
-
-import urllib
-import time
-import json
-from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, ForeignKey
-import MySQLdb
-
+#
+# import urllib
+# import time
+# import json
+# from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, ForeignKey
+# import MySQLdb
 
 
 cur_abs_dir = os.path.dirname(os.path.abspath(__file__))
@@ -31,7 +30,7 @@ templates_folder = os.path.join(os.path.dirname(root_dir), 'templates')
 basic = Blueprint('basic', __name__)
 
 
-engine = create_engine("mysql+mysqldb://root:root@127.0.0.1:3306/test", max_overflow=5)
+# engine = create_engine("mysql+mysqldb://root:root@127.0.0.1:3306/test", max_overflow=5)
 
 class Basic:
     pass
@@ -40,15 +39,19 @@ class Basic:
     #     self.__accessToken = ''
     #     self.__leftTime = 0
 
-def __real_get_access_token(self):
-    appId = "wxd4a571adfc4d2c79"
-    appSecret = "a1238284510d1e8c2183f998343d42c3"
 
-    postUrl = ("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s" % (appId, appSecret))
+def __real_get_access_token(self):
+    appId = "wxe2b38dabbb686f21"
+    appSecret = "8e511b955bab52120e2f821684ea7859"
+
+    postUrl = (
+        "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s" % (appId, appSecret))
+
     urlResp = urllib.urlopen(postUrl)
     urlResp = json.loads(urlResp.read())
     self.__accessToken = urlResp['access_token']
     self.__leftTime = urlResp['expires_in']
+
 
 '''
     1。去数据库查询是否有toke
@@ -58,22 +61,32 @@ def __real_get_access_token(self):
             不存在 获取toke 写入并记录 失效时间
 '''
 
-def get_access_token(self):
-    if self.__leftTime < 10:
-        self.__real_get_access_token()
-        return self.__accessToken
+
+def get_access_token():
+
+    print ('xxxxx')
+    # if self.__leftTime < 10:
+    #     self.__real_get_access_token()
+    #     return self.__accessToken
+
 
 def run(self):
-    while(True):
+    while (True):
         if self.__leftTime > 10:
             time.sleep(2)
             self.__leftTime -= 2
         else:
             self.__real_get_access_token()
 
+
 def check_access_toke(f):
     @wraps(f)
     def get_self_access_token(*args, **kwargs):
-
+        get_access_token()
         return f(*args, **kwargs)
+
     return get_self_access_token
+
+
+if __name__ == '__main__':
+    print 'hello'

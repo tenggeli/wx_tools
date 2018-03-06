@@ -13,6 +13,9 @@ cur_abs_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(cur_abs_dir)
 code_dir = os.path.dirname(root_dir)  # /Users/xiaoqi/www/MyHtml/wx_tools/app
 sys.path.insert(0, code_dir)  # /Users/xiaoqi/www/MyHtml/wx_tools
+from app.utils.MyLogger import MyLogger
+
+logger = MyLogger.getLogger()
 
 from app.weixin.handle import handle
 from app.weixin.basic import check_access_toke
@@ -33,7 +36,7 @@ app.register_blueprint(basic)
 
 
 @app.route('/')
-# @basic
+@check_access_toke
 def index():
     return 'YCL I LOVE YOU!'
 

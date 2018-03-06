@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # filename: handle.py
-from flask import Flask, jsonify
-from flask import request, make_response
-from flask import abort
+
 import hashlib
+from flask import Flask, Blueprint, request, render_template
+from flask import jsonify, make_response, abort
 
 app = Flask(__name__)
 
-from flask import Blueprint, render_template
 import os
 from app.utils.MyLogger import MyLogger
 
@@ -29,9 +28,40 @@ class Handle(object):
 # def __init__(self):
 #     pass
 
-
-@handle.route('/verify', methods=['GET', 'POST'])
+@handle.route('/verify', methods=['POST'])
 @check_access_toke
+def POST():
+    try:
+        webData = request.args
+        logger.info("Handle Post webdata is ", webData)
+        '''
+        
+        recMsg = receive.parse_xml(webData)
+        if isinstance(recMsg, receive.Msg):
+            toUser = recMsg.FromUserName
+            fromUser = recMsg.ToUserName
+            if recMsg.MsgType == 'text':
+                content = recMsg.Content
+                print "返回的数据为：", content
+                replyMsg = reply.TextMsg(toUser, fromUser, content)
+                return replyMsg.send()
+            if recMsg.MsgType == 'image':
+                mediaId = recMsg.MediaId
+                print "返回的数据mediaId为：", mediaId
+                replyMsg = reply.ImageMsg(toUser, fromUser, mediaId)
+                return replyMsg.send()
+            else:
+                return reply.Msg().send()
+        else:
+            print "暂且不处理"
+            return reply.Msg().send()
+        '''
+    except Exception, Argment:
+        return Argment
+
+
+'''
+@handle.route('/', methods=['GET'])
 def GET():
     logger.info('开始进行验证！')
     try:
@@ -52,7 +82,7 @@ def GET():
         sha1 = hashlib.sha1()
         map(sha1.update, list)
         hashcode = sha1.hexdigest()
-        logger.info(echostr)
+        
         if hashcode == signature:
             return make_response(echostr)
         else:
@@ -60,32 +90,13 @@ def GET():
 
     except Exception as Argument:
         return Argument
-
-
+        
 '''
-def POST(self):
-    try:
-        webData = web.data()
-        print "Handle Post webdata is ", webData  # 后台打日志
-        recMsg = receive.parse_xml(webData)
-        if isinstance(recMsg, receive.Msg):
-            toUser = recMsg.FromUserName
-            fromUser = recMsg.ToUserName
-            if recMsg.MsgType == 'text':
-                content = recMsg.Content
-                print "返回的数据为：", content
-                replyMsg = reply.TextMsg(toUser, fromUser, content)
-                return replyMsg.send()
-            if recMsg.MsgType == 'image':
-                mediaId = recMsg.MediaId
-                print "返回的数据mediaId为：", mediaId
-                replyMsg = reply.ImageMsg(toUser, fromUser, mediaId)
-                return replyMsg.send()
-            else:
-                return reply.Msg().send()
-        else:
-            print "暂且不处理"
-            return reply.Msg().send()
-    except Exception, Argment:
-        return Argment
+'''        
+-1	    系统繁忙，此时请开发者稍候再试
+0	    请求成功
+40001	AppSecret错误或者AppSecret不属于这个公众号，请开发者确认AppSecret的正确性
+40002	请确保grant_type字段值为client_credential
+40164	调用接口的IP地址不在白名单中，请在接口IP白名单中进行设置
+
 '''

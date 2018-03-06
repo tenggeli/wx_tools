@@ -1,7 +1,7 @@
 # _*_ coding:UTF-8 _*_
 
 import os
-
+import time
 import logging
 import logging.handlers
 
@@ -21,11 +21,12 @@ class MyLogger(object):
         #         path='/Users/tony/work/workspace/bi.jobscheduler/log/myapp.log'
         #         path = '../log/myapp.log'
         #         path = '/Users/tony/github/bi.harrypotte/bi.harrypotte.harrypotte/jobscheduler/log/myapp.log'
-        path = '../log/myapp.log'
+        path_ext = time.strftime("%Y-%m-%d", time.localtime())
+        path = 'log/'+ path_ext + '_myapp.log'
         if MyLogger.logger is None:
             logging.basicConfig(level = logging.DEBUG,
                                 format = '%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-                                datefmt = '%m-%d %H:%M',
+                                datefmt = '%Y-%m-%d %H:%M:%S',
                                 filename = path,
                                 filemode = 'a+')
             logging.Formatter(
