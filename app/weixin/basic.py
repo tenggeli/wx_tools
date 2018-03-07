@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 #  filename: basic.py
 
-import os, time
+import os, time, urllib, json
 from flask import Flask, Blueprint, request
 from flask import jsonify, abort, render_template
 from functools import wraps
+from app.models.accessToken import accessToken
 
 app = Flask(__name__)
 
@@ -12,15 +13,6 @@ app = Flask(__name__)
 from app.utils.MyLogger import MyLogger
 
 logger = MyLogger.getLogger()
-
-# print(logger)
-
-#
-# import urllib
-# import time
-# import json
-# from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, ForeignKey
-# import MySQLdb
 
 
 cur_abs_dir = os.path.dirname(os.path.abspath(__file__))
@@ -49,9 +41,9 @@ def __real_get_access_token(self):
 
     urlResp = urllib.urlopen(postUrl)
     urlResp = json.loads(urlResp.read())
-    self.__accessToken = urlResp['access_token']
-    self.__leftTime = urlResp['expires_in']
 
+    accessToken = accessToken()
+    status = accessToken.insertAccessToken(urlResp)
 
 '''
     1。去数据库查询是否有toke
@@ -65,23 +57,18 @@ def __real_get_access_token(self):
 def get_access_token():
     accessToken = accessToken()
     result, status, msg = accessToken.getAccessToken()
+    t = time.time()
+    if status == 0 :
+        if result.expires_time < int(t): #统一使用时间戳 当前时间戳较大，未过期，否则过期重新获取。
+            return result.access_token
+        else :
+            __real_get_access_token()
 
+    else :
+        __real_get_access_token()
 
+    print ('获取toke')
 
-
-    print ('xxxxx')
-    # if self.__leftTime < 10:
-    #     self.__real_get_access_token()
-    #     return self.__accessToken
-
-
-def run(self):
-    while (True):
-        if self.__leftTime > 10:
-            time.sleep(2)
-            self.__leftTime -= 2
-        else:
-            self.__real_get_access_token()
 
 
 def check_access_toke(f):

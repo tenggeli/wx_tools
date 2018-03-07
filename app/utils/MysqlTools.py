@@ -190,104 +190,16 @@ class MysqlTools(object):
             #                 MysqlTools.engine.close()
             pass
 
-#     一、当天或当日插入的数据：
-#     1、传统对比判断：SELECT * FROM `t` WHERE DATE_FORMAT(addTime,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')");
-#     2、第一点的简写：SELECT * FROM `t` WHERE addTime >= date_format(NOW(),'%Y-%m-%d');
-#     3、利用函数判断：SELECT * FROM `t` WHERE DATEDIFF(addTime,NOW()) =0;//推荐此方法
-# 4、利用时间戳判断：SELECT * FROM `t` WHERE addTime BETWEEN
-# (UNIX_TIMESTAMP(now()-86440)) AND now();
-
-    def getModJobList(self):
-        session = MysqlTools.getSession()
-        sql = 'select * from job_info2 where TIMESTAMPDIFF(SECOND,create_time,NOW()) <= ' + str(
-            1 * 60 * 60)
-#         sql='select * from job_info where TIMESTAMPDIFF(SECOND,mod_time,NOW()) <= '+str(2*60*60)
-#         print sql
-        results = None
-        try:
-            results = session.execute(sql).fetchall()
-        except Exception, e:
-            logger.error("Mysql is Error:%s" % (e))
-        finally:
-            if session:
-                session.close
-        return results
-
-    def getJobInfoList(self):
-        session = MysqlTools.getSession()
-        sql = 'select * from job_info '
-        results = None
-        try:
-            results = session.execute(sql).fetchall()
-        except Exception, e:
-            logger.error("Mysql is Error:%s" % (e))
-        finally:
-            #             if session:
-            #                 session.close
-            pass
-        return results
-
-    def insertOrUpdateJobInfo(self, tablename, name_str, value_str, update_str):
-        #         insert_sql="insert into datax_app ({0}) values ({1})".format(fields_str,value_str)
-        session = MysqlTools.getSession()
-        sql = str('insert into ' + tablename +
-                  '({0}) values ({1}) ON DUPLICATE KEY UPDATE {2}').format(name_str, value_str, update_str)
-#         print sql
-        try:
-            session.execute(sql)
-            session.commit()
-        except Exception, e:
-            #             self.conn.rollback()
-            # logger.error("Mysql Error insert single record %d: %s" % (e.args[0], e.args[1]))
-            print "Mysql Error insert single record %d: %s" % (e.args[0], e.args[1])
-            logger.error("Mysql is Error:%s" % (e))
-        finally:
-            if session:
-                session.close
-
     def getTimeSux(self):
         millis = int(round(time.time() * 1000))  # round()方法返回 x 的小数点四舍五入到n个数字
         return millis
 
-    def insertJobRunLog(self, jobRunInfo, status):
-        jobRunInfo.starttime = self.getTimeSux()
-#         jobRunInfo.job_status=status
-
-        session = MysqlTools.getSession()
-        try:
-            session.add(jobRunInfo)
-            session.commit
-        except Exception, e:
-            session.rollback()
-            logger.error("Mysql is Error:%s" % (e))
-        finally:
-            if session is not None:
-                session.close()
-#             if MysqlTools.engine is not None:
-#                 MysqlTools.engine.close()
-
-    def updateJobRunLog(self, jobRunInfo, status):
-        session = MysqlTools.getSession()
-        sql = '''
-                update job_run_info set status='{status}' where id='{id}'
-            '''.format(status=jobRunInfo.status, id=jobRunInfo.id)
-        try:
-            session.execute(sql)
-            session.commit
-        except Exception, e:
-            session.rollback()
-            logger.error("Mysql is Error:%s" % (e))
-        finally:
-            if session is not None:
-                session.close()
-
-        pass
 
     def test(self):
-            #     ms=MysqlConnection()
-        #     ms.getConnection()
-        #     MysqlConnection.getConnection()
-        #         engine = create_engine("mysql+mysqldb://root:root@127.0.0.1:3306/my_job_db?charset=utf8")
+        ms=MysqlConnection()
+        ms.getConnection()
+        MysqlConnection.getConnection()
+        engine = create_engine("mysql+mysqldb://root:root@127.0.0.1:3306/my_job_db?charset=utf8")
         #         # 创建DBSession类型:
         #         DBSession = sessionmaker(bind=engine)
         #         # 创建session对象:
