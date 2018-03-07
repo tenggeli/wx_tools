@@ -1,6 +1,6 @@
 #  -*- coding: utf-8 -*-
 # IngressController.py
-import json
+import json, datetime, time
 from app.utils.MysqlTools import MysqlTools
 
 
@@ -10,20 +10,7 @@ logger = MyLogger.getLogger()
 
 class accessToken(object):
     def save(self, obj):
-        session = MysqlTools.getManualSession()
-        new_id = None
-        try:
-            session.add(obj)
-            session.commit()
-            new_id = obj.id
-            return new_id
-        except Exception, e:
-            session.rollback()
-            logger.error("Mysql is Error:%s" % (e))
-        finally:
-            if session:
-                session.close()
-        return new_id
+        pass
 
     def getAccessToken(self):
         status = 0
@@ -47,6 +34,7 @@ class accessToken(object):
         return results, status, msg
 
     def updateAccessToken(self, urlResp):
+        session = MysqlTools.getSession()
         access_token = urlResp['access_token']
         expires_in = urlResp['expires_in']
         air_time = datetime.datetime.now()
@@ -54,7 +42,7 @@ class accessToken(object):
         expires_time = time.mktime(d2.timetuple())
 
         try:
-            session = MysqlDao.getSession()
+
             sql = '''
                 update access_token_list set access_token='{}' ,expires_in = '{}',air_time = {}, expires_time = {} where status=1
             '''.format(access_token, expires_in, air_time, expires_time)
@@ -63,8 +51,13 @@ class accessToken(object):
         except Exception, e:
             session.rollback()
             logger.error("Mysql is Error:%s" % (e))
+        finally:
+            if session:
+                session.close()
 
     def insertAccessToken(self, urlResp):
+        session = MysqlTools.getSession()
+
         access_token = urlResp['access_token']
         expires_in = urlResp['expires_in']
         air_time = datetime.datetime.now()
@@ -76,7 +69,7 @@ class accessToken(object):
                   '({0}) values ({1})').format(access_token_columns, value_str
             )
         try:
-            session = MysqlDao.getSession()
+
             session.execute(sql)
         try:
             session.execute(sql)
