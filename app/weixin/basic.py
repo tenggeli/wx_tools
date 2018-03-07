@@ -41,9 +41,8 @@ def __real_get_access_token(self):
 
     urlResp = urllib.urlopen(postUrl)
     urlResp = json.loads(urlResp.read())
+    return urlResp
 
-    accessToken = accessToken()
-    status = accessToken.insertAccessToken(urlResp)
 
 '''
     1。去数据库查询是否有toke
@@ -58,16 +57,20 @@ def get_access_token():
     accessToken = accessToken()
     result, status, msg = accessToken.getAccessToken()
     t = time.time()
+    access_token = ''
     if status == 0 :
         if result.expires_time < int(t): #统一使用时间戳 当前时间戳较大，未过期，否则过期重新获取。
-            return result.access_token
+            access_token = result.access_token
         else :
-            __real_get_access_token()
+            access_token = __real_get_access_token()
+            status = accessToken.updateAccessToken(token)
+            logger.info("更新状态为{}",status)
 
     else :
-        __real_get_access_token()
+        access_token = __real_get_access_token()
+        status = accessToken.insertAccessToken(access_token)
 
-    print ('获取toke')
+    return access_token
 
 
 

@@ -1,5 +1,5 @@
 #  -*- coding: utf-8 -*-
-
+# IngressController.py
 import json
 from app.utils.MysqlTools import MysqlTools
 
@@ -68,12 +68,13 @@ class accessToken(object):
         access_token = urlResp['access_token']
         expires_in = urlResp['expires_in']
         air_time = datetime.datetime.now()
-        d2 = air_time + datetime.timedelta(seconds=7200)
+        d2 = air_time + datetime.timedelta(seconds=expires_in)
         expires_time = time.mktime(d2.timetuple())
         access_token_columns = 'access_token,air_time,expires_in,expires_time,status'
-        value_str = str('{0},{1},{2},{3},{4}').format(access_token, air_time, expires_in, expires_time, 1)
+        value_str = str("'{0}','{1}',{2},{3},{4}").format(access_token, air_time, expires_in, expires_time, 1)
         sql = str('insert into access_token_list ' +
-                  '({0}) values ({1})').format(name_str, value_str)
+                  '({0}) values ({1})').format(access_token_columns, value_str
+            )
         try:
             session = MysqlDao.getSession()
             session.execute(sql)
