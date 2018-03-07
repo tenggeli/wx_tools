@@ -17,9 +17,8 @@ from app.utils.MyLogger import MyLogger
 
 logger = MyLogger.getLogger()
 
-from app.weixin.handle import handle
-from app.weixin.basic import check_access_toke
-from app.weixin.basic import basic
+from app.weixin.controller.IngressController import ingress
+# from app.weixin.serve.Basic import basic
 
 # lc = LoginController()
 
@@ -31,8 +30,8 @@ app = Flask(__name__, static_folder=static_floder,
             template_folder=template_folder)
 
 # app.register_blueprint(handle)
-app.register_blueprint(handle, url_prefix='/weixin')
-app.register_blueprint(basic)
+app.register_blueprint(ingress, url_prefix='/weixin')
+# app.register_blueprint(basic)
 
 
 @app.route('/')
