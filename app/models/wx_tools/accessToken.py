@@ -42,9 +42,10 @@ class accessToken(object):
         expires_time = time.mktime(d2.timetuple())
 
         try:
-
             sql = '''
-                update access_token_list set access_token='{}' ,expires_in = '{}',air_time = {}, expires_time = {} where status=1
+                update 
+                    access_token_list 
+                set access_token='{}' ,expires_in = {},air_time = '{}', expires_time = {} where status=1
             '''.format(access_token, expires_in, air_time, expires_time)
             session.execute(sql)
 
@@ -66,11 +67,7 @@ class accessToken(object):
         access_token_columns = 'access_token,air_time,expires_in,expires_time,status'
         value_str = str("'{0}','{1}',{2},{3},{4}").format(access_token, air_time, expires_in, expires_time, 1)
         sql = str('insert into access_token_list ' +
-                  '({0}) values ({1})').format(access_token_columns, value_str
-            )
-        try:
-
-            session.execute(sql)
+                  '({0}) values ({1})').format(access_token_columns, value_str)
         try:
             session.execute(sql)
         # session.commit()

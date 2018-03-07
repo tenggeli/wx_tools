@@ -64,7 +64,7 @@ def get_access_token():
         else :
             access_token = __real_get_access_token()
             status = accessToken.updateAccessToken(token)
-            logger.info("更新状态为{}",status)
+            logger.info("更新sql执行状态为：{}",status)
 
     else :
         access_token = __real_get_access_token()

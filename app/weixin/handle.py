@@ -12,7 +12,7 @@ from app.utils.MyLogger import MyLogger
 
 logger = MyLogger.getLogger()
 
-from app.weixin.basic import check_access_toke
+from app.weixin.serve.basic import check_access_toke
 
 cur_abs_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(cur_abs_dir)
@@ -35,7 +35,7 @@ def POST():
         webData = request.args
         logger.info("Handle Post webdata is ", webData)
         '''
-        
+
         recMsg = receive.parse_xml(webData)
         if isinstance(recMsg, receive.Msg):
             toUser = recMsg.FromUserName
@@ -82,7 +82,7 @@ def GET():
         sha1 = hashlib.sha1()
         map(sha1.update, list)
         hashcode = sha1.hexdigest()
-        
+
         if hashcode == signature:
             return make_response(echostr)
         else:
@@ -90,9 +90,9 @@ def GET():
 
     except Exception as Argument:
         return Argument
-        
+
 '''
-'''        
+'''
 -1	    系统繁忙，此时请开发者稍候再试
 0	    请求成功
 40001	AppSecret错误或者AppSecret不属于这个公众号，请开发者确认AppSecret的正确性
