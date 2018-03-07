@@ -54,7 +54,7 @@ def __real_get_access_token(self):
 
 
 def get_access_token():
-    # accessToken = accessToken()
+    accessToken = accessToken()
     result, status, msg = accessToken.getAccessToken()
     t = time.time()
     access_token = ''

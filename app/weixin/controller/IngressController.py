@@ -21,7 +21,7 @@ templates_folder = os.path.join(os.path.dirname(root_dir), 'templates')
 handle = Blueprint('handle', __name__, url_prefix='/weixin')
 
 
-class Handle(object):
+class IngressController(object):
     pass
 
 
@@ -93,10 +93,10 @@ def GET():
 
 '''
 '''
--1	    系统繁忙，此时请开发者稍候再试
-0	    请求成功
-40001	AppSecret错误或者AppSecret不属于这个公众号，请开发者确认AppSecret的正确性
-40002	请确保grant_type字段值为client_credential
-40164	调用接口的IP地址不在白名单中，请在接口IP白名单中进行设置
+-1      系统繁忙，此时请开发者稍候再试
+0       请求成功
+40001   AppSecret错误或者AppSecret不属于这个公众号，请开发者确认AppSecret的正确性
+40002   请确保grant_type字段值为client_credential
+40164   调用接口的IP地址不在白名单中，请在接口IP白名单中进行设置
 
 '''
