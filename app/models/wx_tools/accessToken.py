@@ -20,7 +20,7 @@ class accessToken(object):
         sql = '''
         SELECT 
           access_token,
-          expires_time
+          expires_time_stamp
         FROM access_token_list
         WHERE status = 1
         '''
