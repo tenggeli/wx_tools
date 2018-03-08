@@ -33,7 +33,7 @@ class IngressController(object):
 def POST():
     try:
         webData = request.args
-        logger.info("Handle Post webdata is ", webData)
+        logger.info("获取的数据")
         '''
         recMsg = receive.parse_xml(webData)
         if isinstance(recMsg, receive.Msg):

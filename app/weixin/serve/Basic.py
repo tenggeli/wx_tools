@@ -72,6 +72,7 @@ def check_access_toke(f):
     @wraps(f)
     def get_self_access_token(*args, **kwargs):
         get_access_token()
+        logger.info("获取验证的token")
         return f(*args, **kwargs)
 
     return get_self_access_token
