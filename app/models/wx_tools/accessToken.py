@@ -67,7 +67,7 @@ class accessToken(object):
         air_time = datetime.datetime.now()
         d2 = air_time + datetime.timedelta(seconds=expires_in)
         expires_time_stamp = time.mktime(d2.timetuple())
-        access_token_columns = 'access_token,air_time,expires_in,expires_time,status'
+        access_token_columns = 'access_token,air_time,expires_in,expires_time_stamp,status'
         value_str = str("'{0}','{1}',{2},{3},{4}").format(access_token, air_time, expires_in, expires_time_stamp, 1)
         sql = str('insert into access_token_list ' +
                   '({0}) values ({1})').format(access_token_columns, value_str)
