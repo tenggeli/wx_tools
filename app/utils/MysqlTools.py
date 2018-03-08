@@ -11,7 +11,7 @@ sys.setdefaultencoding('utf-8')
 from app.utils.MyLogger import MyLogger
 logger = MyLogger.getLogger()
 from config import default
-
+from configparser import ConfigParser
 # from lib.log4me import MyLogger
 # logger = MyLogger.getLogger()
 
@@ -30,23 +30,29 @@ class MysqlTools(object):
 
     @staticmethod
     def initConnection():
+        cfg = ConfigParser()
+        cfg.read('.env')
+        mysql_conn_online = cfg.get('wx_tools_conn', 'conn')
         if MysqlTools.engine is None:
             try:
                 MysqlTools.engine = create_engine(
-                    default.mysql_conn_online, pool_size=30, max_overflow=-1, pool_recycle=500, echo=True)
+                    mysql_conn_online, pool_size=30, max_overflow=-1, pool_recycle=500, echo=True)
             except Exception, e:
                 logger.error("initConnection is Error:%s" % (e))
         if MysqlTools.datax_engine is None:
             try:
                 MysqlTools.datax_engine = create_engine(
-                    default.mysql_conn_online, pool_size=30, max_overflow=-1, pool_recycle=500, echo=True)
+                    mysql_conn_online, pool_size=30, max_overflow=-1, pool_recycle=500, echo=True)
             except Exception, e:
                 logger.error("initConnection is Error:%s" % (e))
 
     @staticmethod
     def getEngine():
+        cfg = ConfigParser()
+        cfg.read('.env')
+        mysql_conn_online = cfg.get('wx_tools_conn', 'conn')
         try:
-            conn = create_engine(default.mysql_conn_online)
+            conn = create_engine(mysql_conn_online)
 
         except Exception, e:
             logger.error("Mysql is Error:%s" % (e))

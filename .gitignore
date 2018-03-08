@@ -3,3 +3,4 @@ instance/
 app/log/*
 *.log
 .idea
+.env
