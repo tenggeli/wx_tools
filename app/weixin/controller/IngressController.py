@@ -36,8 +36,8 @@ def POST():
         logger.info("获取POST请求!!!!!!")
         try:
             webData = request.values
-            logger.info("获取的数据为:{}".format(webData))
-            recMsg = receive.parse_xml(webData)
+            recMsg = CombinedMultiDict(webData)
+            logger.info("获取的数据为:{}".format(recMsg))
             if isinstance(recMsg, receive.Msg):
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
