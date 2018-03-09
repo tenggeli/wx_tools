@@ -23,10 +23,11 @@ class accessToken(object):
         FROM access_token_list
         WHERE status = 1
         '''
-        results = []
+        results = ()
         session = MysqlTools.getSession()
         try:
             results = session.execute(sql).fetchall()
+            logger.info(results)
         except Exception, e:
             status = 1
             logger.error("Mysql is Error:%s" % (e))
