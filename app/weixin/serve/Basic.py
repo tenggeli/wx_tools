@@ -51,22 +51,15 @@ def get_access_token():
     modelsToken = accessToken()
     result, status = modelsToken.getAccessToken()
     t = time.time()
-    logger.info(result['access_token'])
-
-    logger.info("当前使用的token为：{}",result['access_token'])
-    logger.info("当前使用的token的过期时间为：{}", result['expires_time_stamp'])
+    access_token = ''
     if result != []:
-        if result['expires_time'] < int(t):  # 统一使用时间戳 当前时间戳较大，未过期，否则过期重新获取。
+        if result['expires_time_stamp'] < int(t):  # 统一使用时间戳 当前时间戳较大，未过期，否则过期重新获取。
             access_token = result['access_token']
-            logger.info("当前使用的token为：{}",access_token)
-            logger.info("当前使用的token的过期时间为：{}", result['expires_time'])
+            logger.info("get_access_token当前使用的： access_token:{} ,expires_time_stamp:{}".format(access_token, result['expires_time_stamp']))
 
         else:
             access_token = __real_get_access_token()
-
             status = modelsToken.updateAccessToken(access_token)
-            logger.info("更新sql执行状态为：{}", status)
-
     else:
         access_token = __real_get_access_token()
         status = modelsToken.insertAccessToken(access_token)
