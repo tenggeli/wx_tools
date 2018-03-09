@@ -25,11 +25,10 @@ ingress = Blueprint('IngressController', __name__, url_prefix='/weixin')
 
 class IngressController(object):
     pass
+    # def __init__(self):
+    #     pass
+    # @ingress.route('/verify', methods=['POST'])
 
-
-# def __init__(self):
-#     pass
-# @ingress.route('/verify', methods=['POST'])
 @ingress.route('/', methods=['POST'])
 @check_access_toke
 def POST():
@@ -42,12 +41,12 @@ def POST():
             fromUser = recMsg.ToUserName
             if recMsg.MsgType == 'text':
                 content = recMsg.Content
-                print "返回的数据为：", content
+                logger.info("返回的数据为: {}".format(content))
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 return replyMsg.send()
             if recMsg.MsgType == 'image':
                 mediaId = recMsg.MediaId
-                print "返回的数据mediaId为：", mediaId
+                logger.info("返回的数据mediaId为: {}".format(mediaId))
                 replyMsg = reply.ImageMsg(toUser, fromUser, mediaId)
                 return replyMsg.send()
             else:
