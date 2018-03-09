@@ -13,6 +13,8 @@ from app.utils.MyLogger import MyLogger
 logger = MyLogger.getLogger()
 
 from app.weixin.serve.Basic import check_access_toke
+from app.weixin.serve.Reply import reply
+from app.weixin.serve.Receive import receive
 
 cur_abs_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(cur_abs_dir)
@@ -27,14 +29,13 @@ class IngressController(object):
 
 # def __init__(self):
 #     pass
-
-@ingress.route('/verify', methods=['GET'])
+# @ingress.route('/verify', methods=['POST'])
+@ingress.route('/', methods=['POST'])
 @check_access_toke
 def POST():
     try:
         webData = request.args
-        logger.info("获取的数据")
-        '''
+        logger.info("获取的数据为:{}".format(webData))
         recMsg = receive.parse_xml(webData)
         if isinstance(recMsg, receive.Msg):
             toUser = recMsg.FromUserName
@@ -54,7 +55,6 @@ def POST():
         else:
             print "暂且不处理"
             return reply.Msg().send()
-        '''
     except Exception, Argment:
         return Argment
 
