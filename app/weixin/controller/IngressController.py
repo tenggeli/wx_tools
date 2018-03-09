@@ -33,7 +33,7 @@ class IngressController(object):
 @check_access_toke
 def POST():
     try:
-        webData = request.args
+        webData = request.values
         logger.info("获取的数据为:{}".format(webData))
         recMsg = receive.parse_xml(webData)
         if isinstance(recMsg, receive.Msg):
