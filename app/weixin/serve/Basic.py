@@ -49,8 +49,9 @@ def __real_get_access_token():
 
 def get_access_token():
     modelsToken = accessToken()
-    result, status, msg = modelsToken.getAccessToken()
+    result, status = modelsToken.getAccessToken()
     t = time.time()
+    logger.info(result)
     access_token = ''
     if status == 0:
         if result.expires_time < int(t):  # 统一使用时间戳 当前时间戳较大，未过期，否则过期重新获取。
