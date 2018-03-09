@@ -52,11 +52,13 @@ def get_access_token():
     result, status = modelsToken.getAccessToken()
     t = time.time()
     access_token = ''
+    logger.info("当前使用的token为：{}",access_token)
+    logger.info("当前使用的token的过期时间为：{}", result['expires_time'])
     if result != []:
-        if result.expires_time < int(t):  # 统一使用时间戳 当前时间戳较大，未过期，否则过期重新获取。
-            access_token = result.access_token
+        if result['expires_time'] < int(t):  # 统一使用时间戳 当前时间戳较大，未过期，否则过期重新获取。
+            access_token = result['access_token']
             logger.info("当前使用的token为：{}",access_token)
-            logger.info("当前使用的token的过期时间为：{}",result.expires_time)
+            logger.info("当前使用的token的过期时间为：{}", result['expires_time'])
 
         else:
             access_token = __real_get_access_token()

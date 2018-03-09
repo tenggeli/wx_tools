@@ -26,8 +26,7 @@ class accessToken(object):
         results = []
         session = MysqlTools.getSession()
         try:
-            results = session.execute(sql).fetchall()
-            logger.info(results)
+            results = session.execute(sql).first()
         except Exception, e:
             status = 1
             logger.error("Mysql is Error:%s" % (e))
