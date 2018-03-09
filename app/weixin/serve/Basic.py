@@ -53,7 +53,7 @@ def get_access_token():
     t = time.time()
     logger.info(result)
     access_token = ''
-    if status == 0:
+    if result != []:
         if result.expires_time < int(t):  # 统一使用时间戳 当前时间戳较大，未过期，否则过期重新获取。
             access_token = result.access_token
         else:

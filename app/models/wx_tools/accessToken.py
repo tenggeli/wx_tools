@@ -23,7 +23,7 @@ class accessToken(object):
         FROM access_token_list
         WHERE status = 1
         '''
-        results = ()
+        results = []
         session = MysqlTools.getSession()
         try:
             results = session.execute(sql).fetchall()
