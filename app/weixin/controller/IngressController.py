@@ -13,8 +13,8 @@ from app.utils.MyLogger import MyLogger
 logger = MyLogger.getLogger()
 
 from app.weixin.serve.Basic import check_access_toke
-from app.weixin.serve.Reply import reply
-from app.weixin.serve.Receive import receive
+from app.weixin.serve import Reply as reply
+from app.weixin.serve import Receive as receive
 
 cur_abs_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(cur_abs_dir)
