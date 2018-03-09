@@ -52,6 +52,7 @@ def get_access_token():
     result, status = modelsToken.getAccessToken()
     t = time.time()
     access_token = ''
+    logger.info(status)
     logger.info("当前使用的token为：{}",access_token)
     logger.info("当前使用的token的过期时间为：{}", result['expires_time'])
     if result != []:
