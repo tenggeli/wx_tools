@@ -32,7 +32,7 @@ app = Flask(__name__, static_folder=static_floder,
 
 # app.register_blueprint(handle)
 app.register_blueprint(ingress, url_prefix='/weixin')
-app.register_blueprint(menu_list, url_prefix='/weixin')
+app.register_blueprint(menu_list, url_prefix='/weixin/menu_create')
 # app.register_blueprint(basic)
 
 

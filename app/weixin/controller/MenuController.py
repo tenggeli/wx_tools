@@ -18,16 +18,16 @@ cur_abs_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(cur_abs_dir)
 templates_folder = os.path.join(os.path.dirname(root_dir), 'templates')
 
-menu_list = Blueprint('MenuController', __name__, url_prefix='/weixin')
+menu_list = Blueprint('MenuController', __name__, url_prefix='/weixin/menu_create')
 
 class MenuController(object):
     pass
 
-@menu_list.route('/menu_create', methods=['GET'])
+@menu_list.route('/', methods=['GET'])
 def MenuCreate():
     token = get_access_token()
     logger.info(token)
-    
+
     post = ''''' 
      { 
          "button":[ 
