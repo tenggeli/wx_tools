@@ -26,6 +26,8 @@ class MenuController(object):
 @menu_list.route('/menu_create', methods=['GET'])
 def MenuCreate():
     token = get_access_token()
+    logger.info(token)
+    
     post = ''''' 
      { 
          "button":[ 
