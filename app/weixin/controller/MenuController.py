@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 import hashlib
 from flask import Flask, Blueprint, request, render_template
 from flask import jsonify, make_response, abort

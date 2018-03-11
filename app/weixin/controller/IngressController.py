@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# filename: handle.py
 
 import hashlib
 from flask import Flask, Blueprint, request, render_template
