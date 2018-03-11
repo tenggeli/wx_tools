@@ -18,7 +18,7 @@ from app.utils.MyLogger import MyLogger
 logger = MyLogger.getLogger()
 
 from app.weixin.controller.IngressController import ingress
-from app.weixin.controller.MenuController import menu_list
+
 # from app.weixin.serve.Basic import basic
 
 # lc = LoginController()
@@ -32,7 +32,6 @@ app = Flask(__name__, static_folder=static_floder,
 
 # app.register_blueprint(handle)
 app.register_blueprint(ingress, url_prefix='/weixin')
-app.register_blueprint(menu_list, url_prefix='/weixin/menu_create')
 # app.register_blueprint(basic)
 
 
