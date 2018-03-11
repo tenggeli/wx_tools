@@ -20,30 +20,27 @@ menu_list = Blueprint('MenuController', __name__, url_prefix='/weixin')
 class MenuController(object):
     pass
 
-@menu_list.route('/create', methods=['POST'])
+@menu_list.route('/menu_create', methods=['GET'])
 @check_access_toke
 def MenuCreate():
-    url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + appid + '&secret=' + secret
-    response = urllib2.urlopen(url)
-    html = response.read()
-    tokeninfo = json.loads(html)
-    token = tokeninfo['access_token']
+    token = check_access_toke
+    print (token)
     post = ''''' 
      { 
          "button":[ 
          {   
               "type":"click", 
-              "name":"开始", 
+              "name":"菜单1", 
               "key":"begin" 
           }, 
           { 
                "type":"click", 
-               "name":"结束", 
+               "name":"菜单2", 
                "key":"end" 
           }, 
           { 
               "type":"click", 
-               "name":"游戏", 
+               "name":"菜单3", 
                "key":"play"     
            }] 
      }'''
