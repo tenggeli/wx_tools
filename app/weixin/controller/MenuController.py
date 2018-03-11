@@ -24,7 +24,6 @@ class MenuController(object):
     pass
 
 @menu_list.route('/menu_create', methods=['GET'])
-@check_access_toke
 def MenuCreate():
     token = check_access_toke
     print (token)
