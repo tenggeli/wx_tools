@@ -33,7 +33,6 @@ class MysqlTools(object):
         cfg = ConfigParser()
         cfg.read('.env')
         mysql_conn_online = cfg.get('wx_tools_conn', 'conn')
-        logger.info(mysql_conn_online)
         if MysqlTools.engine is None:
             try:
                 MysqlTools.engine = create_engine(
