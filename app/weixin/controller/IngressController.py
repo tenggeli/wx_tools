@@ -6,12 +6,12 @@ from flask import jsonify, make_response, abort
 
 app = Flask(__name__)
 
-import os
+import os, urllib2
 from app.utils.MyLogger import MyLogger
 
 logger = MyLogger.getLogger()
 
-from app.weixin.serve.Basic import check_access_toke
+from app.weixin.serve.Basic import get_access_token
 from app.weixin.serve import Reply as reply
 from app.weixin.serve import Receive as receive
 
@@ -29,7 +29,6 @@ class IngressController(object):
     # @ingress.route('/verify', methods=['POST'])
 
 @ingress.route('/', methods=['POST', 'GET'])
-@check_access_toke
 def POST():
     if request.method == 'POST':
         logger.info("获取POST请求!!!!!!")
@@ -86,6 +85,36 @@ def POST():
         except Exception as Argument:
             return Argument
 
+
+
+@ingress.route('/menu_create', methods=['GET'])
+def MenuCreate():
+    token = get_access_token()
+    logger.info(token)
+
+    post = ''''' 
+     { 
+         "button":[ 
+         {   
+              "type":"click", 
+              "name":"菜单1", 
+              "key":"begin" 
+          }, 
+          { 
+               "type":"click", 
+               "name":"菜单2", 
+               "key":"end" 
+          }, 
+          { 
+              "type":"click", 
+               "name":"菜单3", 
+               "key":"play"     
+           }] 
+     }'''
+    url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' + token
+    req = urllib2.Request(url, post)
+    response = urllib2.urlopen(req)
+    return response
 
 '''
 -1      系统繁忙，此时请开发者稍候再试
