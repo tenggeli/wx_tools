@@ -12,7 +12,7 @@ from app.utils.MyLogger import MyLogger
 
 logger = MyLogger.getLogger()
 
-from app.weixin.serve.Basic import check_access_toke
+from app.weixin.serve.Basic import get_access_token
 
 cur_abs_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(cur_abs_dir)
@@ -25,7 +25,7 @@ class MenuController(object):
 
 @menu_list.route('/menu_create', methods=['GET'])
 def MenuCreate():
-    token = check_access_toke
+    token = get_access_token()
     print (token)
     post = ''''' 
      { 
