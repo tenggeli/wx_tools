@@ -53,9 +53,10 @@ def get_access_token():
     t = time.time()
     access_token = ''
     if result != []:
-        if result['expires_time_stamp'] < int(t):  # 统一使用时间戳 当前时间戳较大，未过期，否则过期重新获取。
+        if result['expires_time_stamp'] > int(t):  # 统一使用时间戳 当前时间戳较大，未过期，否则过期重新获取。
             access_token = result['access_token']
-            logger.info("get_access_token当前使用的： access_token:{} ,expires_time_stamp:{}".format(access_token, result['expires_time_stamp']))
+            logger.info("get_access_token当前使用的： access_token:{} ,expires_time_stamp:{}".format(access_token, result[
+                'expires_time_stamp']))
 
         else:
             access_token = __real_get_access_token()
